@@ -40,14 +40,32 @@ Error handling: Jika environment variable atau URL Supabase sengaja dibuat salah
 ## US-02 Detail produk
 
 **Prompt:**
+Baca docs/user-stories.md bagian US-02.
+
+Ubah app/produk/[id]/page.jsx supaya mengambil satu produk dari tabel "produk" di Supabase berdasarkan id di URL, di sisi server, memakai koneksi Supabase yang sudah dibuat di lib/supabase. Kalau produk tidak ditemukan, panggil notFound(). Jangan ubah tampilannya. Hapus CatatanBelumAktif dari halaman ini, tapi biarkan tombol WhatsApp.
 
 **Hasil:**
+Fitur US-02 (Detail produk) telah selesai diimplementasikan.
+
+File yang diubah
+page.jsx
+Mengambil data satu produk dari tabel produk di Supabase berdasarkan id di URL menggunakan createServerClient di sisi server.
+Menjalankan notFound() bila produk tidak ditemukan atau terjadi kesalahan saat pencarian (misalnya format ID tidak valid).
+Menampilkan foto, kategori, nama, harga, dan deskripsi dari database tanpa mengubah struktur maupun styling tampilan.
+Menghapus komponen CatatanBelumAktif dan referensi ke data-contoh.js, sementara komponen TombolWhatsApp tetap dipertahankan.
+Cara mengetes
+Buka halaman utama katalog di http://localhost:3000.
+Klik salah satu produk untuk membuka halaman detailnya (contoh: http://localhost:3000/produk/1). Pastikan foto, kategori, nama, harga format rupiah, dan deskripsi produk tampil sesuai dengan data di tabel produk Supabase.
+Coba akses ID produk yang tidak ada di database (contoh: http://localhost:3000/produk/99999 atau http://localhost:3000/produk/tidak-ada). Pastikan halaman diarahkan ke tampilan "Halaman tidak ditemukan" (app/not-found.jsx).
 
 **Perbaikan:**
 
 ## US-03 Pesan via WhatsApp
 
 **Prompt:**
+Baca docs/rancangan-teknis.md bagian "Pesan WhatsApp (US-03)".
+
+Ubah components/TombolWhatsApp.jsx menjadi tautan yang membuka https://wa.me/ ke nomor di lib/toko.js, dengan pesan otomatis berisi nama dan harga produk dalam format rupiah. Pesan di-encode dengan encodeURIComponent dan dibuka di tab baru. Pertahankan tampilan tombolnya. Hapus CatatanBelumAktif yang menyebut US-03 di halaman detail produk.
 
 **Hasil:**
 
