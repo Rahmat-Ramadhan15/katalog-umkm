@@ -93,6 +93,31 @@ Baca AGENTS.md bagian aturan keamanan dan docs/user-stories.md bagian US-04.
 Buat login admin memakai Supabase Auth (email dan password) dengan @supabase/ssr dan cookie, memakai SUPABASE_URL dan SUPABASE_PUBLISHABLE_KEY. Login diproses dengan Server Action di app/admin/actions.js dan disambungkan ke form di app/admin/login/page.jsx. Login berhasil diarahkan ke /admin; login gagal menampilkan pesan error yang jelas di halaman login. Buat juga tombol "Keluar" di components/NavAdmin.jsx berfungsi: mengakhiri sesi lalu kembali ke /admin/login. Jangan ubah tampilan. Hapus CatatanBelumAktif dari halaman login.
 
 **Hasil:**
+Fitur US-04 (Login admin) telah selesai diimplementasikan sesuai aturan keamanan di AGENTS.md.
+
+File yang dibuat & diubah
+server.js
+Menambahkan fungsi createSessionClient() yang menggunakan @supabase/ssr, cookies() dari next/headers, process.env.SUPABASE_URL, dan process.env.SUPABASE_PUBLISHABLE_KEY untuk mengelola sesi login admin berbasis cookie di server.
+actions.js (dibuat)
+Membuat Server Action login untuk memproses autentikasi email & password dengan supabase.auth.signInWithPassword. Jika berhasil dialihkan ke /admin, dan jika gagal mengembalikan pesan kesalahan yang jelas.
+Membuat Server Action logout (alias keluar) yang memanggil supabase.auth.signOut() lalu mengalihkan pengguna kembali ke /admin/login.
+page.jsx (login)
+Menghubungkan formulir ke Server Action login dengan useActionState.
+Menampilkan pesan error di atas formulir saat login gagal tanpa mengubah desain tata letak.
+Menghapus komponen CatatanBelumAktif.
+NavAdmin.jsx
+Menghubungkan tombol "Keluar" ke Server Action logout sehingga mengakhiri sesi admin dan kembali ke /admin/login dengan tampilan yang tetap sama.
+Cara mengetes
+Buka halaman login admin di http://localhost:3000/admin/login.
+Uji login gagal:
+Masukkan email atau password yang salah, lalu klik tombol Masuk.
+Pastikan muncul pesan kesalahan yang jelas (contoh: "Email atau password salah. Silakan coba lagi.") dan tetap berada di halaman login.
+Uji login berhasil:
+Masukkan email dan password admin Supabase yang valid, lalu klik Masuk.
+Pastikan berhasil masuk dan dialihkan ke halaman /admin.
+Uji tombol keluar:
+Di halaman /admin, klik tombol Keluar pada bilah navigasi admin.
+Pastikan sesi login berakhir dan halaman kembali dialihkan ke /admin/login.
 
 **Perbaikan:**
 
