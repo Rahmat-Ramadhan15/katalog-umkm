@@ -164,6 +164,26 @@ Baca AGENTS.md aturan keamanan nomor 3 dan 4, dan docs/user-stories.md bagian US
 Buat file proxy.js di root proyek (Next.js 16). Semua rute /admin kecuali /admin/login wajib login dengan Supabase Auth; kalau belum login, alihkan ke /admin/login. Pastikan juga setiap Server Action yang mengubah data memeriksa login di server. Hapus CatatanBelumAktif dari halaman /admin.
 
 **Hasil:**
+Fitur US-06 (Proteksi halaman admin) telah selesai diimplementasikan sesuai aturan keamanan 3 & 4 di AGENTS.md.
+
+File yang dibuat & diubah
+proxy.js (dibuat di root proyek)
+Menggunakan konvensi Next.js 16 (proxy.js) untuk memproteksi rute /admin.
+Menggunakan @supabase/ssr untuk memeriksa status autentikasi admin via cookie dengan supabase.auth.getUser().
+Menjaga dan memperbarui cookie sesi jika ada rotasi token.
+Mengalihkan setiap akses ke rute /admin dan seluruh sub-halamannya (kecuali /admin/login) ke /admin/login jika pengguna belum login.
+actions.js
+Memastikan setiap Server Action yang mengubah data (seperti gantiPassword) memvalidasi sesi admin terlebih dahulu di sisi server sebelum mengeksekusi perubahan.
+page.jsx (admin)
+Menghapus komponen CatatanBelumAktif dari halaman utama admin.
+Cara mengetes
+Buka jendela browser baru dalam mode penyamaran (incognito) agar tidak ada sesi login yang tersimpan.
+Uji proteksi halaman admin tanpa login:
+Coba buka http://localhost:3000/admin. Pastikan langsung dialihkan ke http://localhost:3000/admin/login.
+Coba buka http://localhost:3000/admin/password. Pastikan juga langsung dialihkan ke http://localhost:3000/admin/login.
+Uji akses setelah login:
+Masuk di http://localhost:3000/admin/login dengan akun admin yang valid.
+Setelah berhasil login, pastikan halaman /admin dan /admin/password dapat dibuka secara normal.
 
 **Perbaikan:**
 
