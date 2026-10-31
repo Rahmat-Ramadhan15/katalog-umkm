@@ -68,12 +68,29 @@ Baca docs/rancangan-teknis.md bagian "Pesan WhatsApp (US-03)".
 Ubah components/TombolWhatsApp.jsx menjadi tautan yang membuka https://wa.me/ ke nomor di lib/toko.js, dengan pesan otomatis berisi nama dan harga produk dalam format rupiah. Pesan di-encode dengan encodeURIComponent dan dibuka di tab baru. Pertahankan tampilan tombolnya. Hapus CatatanBelumAktif yang menyebut US-03 di halaman detail produk.
 
 **Hasil:**
+Fitur US-03 (Pesan via WhatsApp) telah selesai diimplementasikan.
+
+File yang diubah
+TombolWhatsApp.jsx
+Mengubah elemen <button> menjadi elemen tautan <a> dengan target tab baru (target="\_blank" dan rel="noopener noreferrer").
+Mengarahkan tautan ke format URL https://wa.me/<nomor>?text=<pesan> menggunakan nomorWhatsApp dari lib/toko.js.
+Mengisi teks pesan otomatis dengan nama produk dan harga produk berformat rupiah (menggunakan formatRupiah), serta di-encode dengan encodeURIComponent.
+Menjaga tampilan tombol tetap konsisten dengan styling sebelumnya.
+page.jsx (detail produk)
+Memastikan komponen CatatanBelumAktif terkait US-03 sudah dihapus dari halaman detail produk.
+Cara mengetes
+Buka salah satu halaman detail produk di browser (misalnya http://localhost:3000/produk/1).
+Klik tombol Pesan via WhatsApp.
+Pastikan browser membuka tab baru menuju WhatsApp (https://wa.me/62...) dengan nomor toko sesuai konfigurasi dan teks pesan otomatis yang memuat nama produk beserta harga rupiahnya (contoh: Halo, saya ingin memesan Kopi Bubuk Robusta 250 g seharga Rp 45.000.).
 
 **Perbaikan:**
 
 ## US-04 Login admin
 
 **Prompt:**
+Baca AGENTS.md bagian aturan keamanan dan docs/user-stories.md bagian US-04.
+
+Buat login admin memakai Supabase Auth (email dan password) dengan @supabase/ssr dan cookie, memakai SUPABASE_URL dan SUPABASE_PUBLISHABLE_KEY. Login diproses dengan Server Action di app/admin/actions.js dan disambungkan ke form di app/admin/login/page.jsx. Login berhasil diarahkan ke /admin; login gagal menampilkan pesan error yang jelas di halaman login. Buat juga tombol "Keluar" di components/NavAdmin.jsx berfungsi: mengakhiri sesi lalu kembali ke /admin/login. Jangan ubah tampilan. Hapus CatatanBelumAktif dari halaman login.
 
 **Hasil:**
 
