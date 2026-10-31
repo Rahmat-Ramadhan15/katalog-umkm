@@ -42,6 +42,10 @@ export async function logout() {
   redirect("/admin/login");
 }
 
+export async function keluar() {
+  return logout();
+}
+
 export async function gantiPassword(prevState, formData) {
   let data = formData;
   if (!data && prevState instanceof FormData) {
@@ -83,5 +87,3 @@ export async function gantiPassword(prevState, formData) {
 
   return { success: "Password berhasil diperbarui." };
 }
-
-export { logout as keluar, gantiPassword as updatePassword };
